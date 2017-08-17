@@ -7,6 +7,7 @@ from .advertiser import Advertiser
 from .agency import Agency
 from .atomiccreative import AtomicCreative
 from .audiencesegment import AudienceSegment
+from .budgetflight import BudgetFlight
 from .campaign import Campaign
 from .concept import Concept
 from .contact import Contact
@@ -50,6 +51,7 @@ __all__ = ['ACL',
            'Agency',
            'AtomicCreative',
            'AudienceSegment',
+           'BudgetFlight',
            'Campaign',
            'Concept',
            'Creative',
