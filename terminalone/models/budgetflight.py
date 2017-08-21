@@ -35,15 +35,28 @@ class BudgetFlight(Entity):
     def __init__(self, session, properties=None, **kwargs):
         super(BudgetFlight, self).__init__(session, properties, **kwargs)
 
+    def _get_path(self):
+        return 'campaigns/{}/'.format(self.campaign_id) + self._construct_url()
+
     def save(self, data=None, url=None):
         try:
             self.__getattr__('campaign_id')
         except AttributeError:
             raise ClientError('Campaign ID not given')
-        url = 'campaigns/{}/'.format(self.campaign_id) + self._construct_url()
-        print(url)
+        url = self._get_path()
 
         if data is None:
             data = self._properties.copy()
 
         super(BudgetFlight, self).save(data=data, url=url)
+
+    def delete(self):
+        try:
+            self.__getattr__('id')
+        except AttributeError:
+            raise ClientError("This budget flight has no ID; does it really exist?")
+        url = self._get_path() + '/delete'
+        data = {'version': self.version}
+        super(BudgetFlight, self).save(data=data, url=url)
+        # successful delete still returns data, so let's blank it out manually
+        self._reset_properties({})
