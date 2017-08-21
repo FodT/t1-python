@@ -42,7 +42,7 @@ class BudgetFlight(Entity):
         try:
             self.__getattr__('campaign_id')
         except AttributeError:
-            raise ClientError('Campaign ID not given')
+            raise ClientError('campaign_id not specified')
         url = self._get_path()
 
         if data is None:
